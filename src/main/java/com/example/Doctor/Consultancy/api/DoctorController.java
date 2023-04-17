@@ -2,11 +2,13 @@ package com.example.Doctor.Consultancy.api;
 
 import com.example.Doctor.Consultancy.models.Doctor;
 import com.example.Doctor.Consultancy.service.DoctorService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,16 +20,58 @@ public class DoctorController {
     @Autowired
     private DoctorService doctorService;
 
-    @GetMapping("/")
-    public String showRegistrationForm() {
-        return "DoctorForm";
-    }
+
+/////////////////////------------Updated Code----------------/////////////////
+@GetMapping("/register")
+public String showRegistrationForm() {
+    return "DoctorForm";
+}
 
     @PostMapping("/register")
-    public ResponseEntity<Doctor> createDoctor(@ModelAttribute Doctor doctor) {
+    public String createDoctor(@ModelAttribute("doctor") Doctor doctor, RedirectAttributes attributes) {
         Doctor createdDoctor = doctorService.createDoctor(doctor);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdDoctor);
+        if (createdDoctor != null) {
+            return "redirect:/login";
+        } else {
+            attributes.addFlashAttribute("error", "Registration failed. Please try again.");
+            return "redirect:/register";
+        }
     }
+
+    @GetMapping("/login")
+    public String showLoginForm() {
+        return "Login";
+    }
+
+//    @PostMapping("/login")
+//    public String login(@ModelAttribute("doctor") Doctor doctor, RedirectAttributes attributes) {
+//        Doctor authenticatedDoctor = doctorService.authenticate(doctor.getEmail(), doctor.getPassword());
+//
+//        if (authenticatedDoctor == null) {
+//            return "redirect:/login";
+//        } else {
+//            return "redirect:/dashboard";
+//        }
+//    }
+    @PostMapping("/login")
+    public String login(@ModelAttribute("doctor") Doctor doctor, RedirectAttributes attributes, HttpSession session) {
+        Doctor authenticatedDoctor = doctorService.authenticate(doctor.getEmail(), doctor.getPassword());
+
+        if (authenticatedDoctor == null) {
+            return "redirect:/login";
+        } else {
+            session.setAttribute("doctorEmail", authenticatedDoctor.getEmail());
+            return "redirect:/dashboard?email=" + authenticatedDoctor.getEmail();
+        }
+    }
+
+    @GetMapping("/dashboard")
+    public String showDashboard() {
+        return "DoctorDashboard";
+    }
+
+///////////////////////////////////---------------------------///////////////////////////////////////////
+
     @GetMapping("/api/doctors")
     public List<Doctor> getAllDoctors() {
         return doctorService.getAllDoctors();
@@ -36,6 +80,14 @@ public class DoctorController {
     @GetMapping("/api/doctors/{id}")
     public ResponseEntity<Doctor> getDoctorById(@PathVariable String id) {
         Doctor doctor = doctorService.getDoctorById(id);
+        if (doctor == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(doctor);
+    }
+    @GetMapping("/api/doctors/email/{email}")
+    public ResponseEntity<Doctor> getDoctorByEmail(@PathVariable String email) {
+        Doctor doctor = doctorService.getDoctorByEmail(email);
         if (doctor == null) {
             return ResponseEntity.notFound().build();
         }

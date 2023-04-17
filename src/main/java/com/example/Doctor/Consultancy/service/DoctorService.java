@@ -14,7 +14,13 @@ public class DoctorService {
 
     @Autowired
     private DoctorRepository doctorRepository;
+    //@Autowired
+    //private BCryptPasswordEncoder passwordEncoder;
 
+    public Doctor createDoctor(Doctor doctor) {
+        //doctor.setPassword(passwordEncoder.encode(doctor.getPassword()));
+        return doctorRepository.save(doctor);
+    }
     public List<Doctor> getAllDoctors() {
         return doctorRepository.findAll();
     }
@@ -27,9 +33,6 @@ public class DoctorService {
         return doctorRepository.findBySpecialty(specialty);
     }
 
-    public Doctor createDoctor(Doctor doctor) {
-        return doctorRepository.save(doctor);
-    }
 
     public Doctor updateDoctorById(String id, Doctor doctor) {
         Doctor existingDoctor = doctorRepository.findById(id).orElse(null);
@@ -75,5 +78,18 @@ public class DoctorService {
         doctorRepository.deleteById(doctorId);
     }
 
+    public Doctor authenticate(String email, String password) {
+        Optional<Doctor> optionalDoctor = doctorRepository.findByEmailAndPassword(email, password);
+
+        if (optionalDoctor.isPresent()) {
+            return optionalDoctor.get();
+        } else {
+            return null;
+        }
+    }
+
+    public Doctor getDoctorByEmail(String email) {
+        return doctorRepository.findByEmail(email).orElse(null);
+    }
 }
 
