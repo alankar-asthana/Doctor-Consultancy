@@ -1,0 +1,186 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > DoctorService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.Doctor.Consultancy.service</a>
+</div>
+
+<h1>Coverage Summary for Class: DoctorService (com.example.Doctor.Consultancy.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DoctorService</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/36)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.Doctor.Consultancy.service;
+&nbsp;
+&nbsp;import com.example.Doctor.Consultancy.models.Doctor;
+&nbsp;import com.example.Doctor.Consultancy.repository.DoctorRepository;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;import java.util.List;
+&nbsp;import java.util.NoSuchElementException;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;
+&nbsp;@Service
+<b class="nc">&nbsp;public class DoctorService {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private DoctorRepository doctorRepository;
+&nbsp;    @Autowired
+&nbsp;    private BCryptPasswordEncoder passwordEncoder;
+&nbsp;
+&nbsp;    public Doctor createDoctor(Doctor doctor) {
+<b class="nc">&nbsp;        doctor.setPassword(passwordEncoder.encode(doctor.getPassword()));</b>
+<b class="nc">&nbsp;        return doctorRepository.save(doctor);</b>
+&nbsp;    }
+&nbsp;    public List&lt;Doctor&gt; getAllDoctors() {
+<b class="nc">&nbsp;        return doctorRepository.findAll();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Doctor getDoctorById(String id) {
+<b class="nc">&nbsp;        return doctorRepository.findById(id).orElse(null);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Optional&lt;List&lt;Doctor&gt;&gt; getDoctorsBySpecialty(String specialty) {
+<b class="nc">&nbsp;        return doctorRepository.findBySpecialty(specialty);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public Doctor updateDoctorById(String id, Doctor doctor) {
+<b class="nc">&nbsp;        Doctor existingDoctor = doctorRepository.findById(id).orElse(null);</b>
+<b class="nc">&nbsp;        if (existingDoctor == null) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        existingDoctor.setName(doctor.getName());</b>
+<b class="nc">&nbsp;        existingDoctor.setEmail(doctor.getEmail());</b>
+<b class="nc">&nbsp;        existingDoctor.setSpecialty(doctor.getSpecialty());</b>
+<b class="nc">&nbsp;        existingDoctor.setPassword(doctor.getPassword());</b>
+<b class="nc">&nbsp;        existingDoctor.setDegree(doctor.getDegree());</b>
+<b class="nc">&nbsp;        existingDoctor.setLicenseNumber(doctor.getLicenseNumber());</b>
+<b class="nc">&nbsp;        existingDoctor.setAddress(doctor.getAddress());</b>
+<b class="nc">&nbsp;        existingDoctor.setPhoneNumber(doctor.getPhoneNumber());</b>
+<b class="nc">&nbsp;        return doctorRepository.save(existingDoctor);</b>
+&nbsp;    }
+&nbsp;    public Doctor updateDoctorByEmail(String email, Doctor doctor) {
+<b class="nc">&nbsp;        Doctor existingDoctor = doctorRepository.findByEmail(email).orElse(null);</b>
+<b class="nc">&nbsp;        if (existingDoctor == null) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        existingDoctor.setName(doctor.getName() != null ? doctor.getName() : existingDoctor.getName());</b>
+<b class="nc">&nbsp;        existingDoctor.setEmail(doctor.getEmail() != null ? doctor.getEmail() : existingDoctor.getEmail());</b>
+<b class="nc">&nbsp;        existingDoctor.setSpecialty(doctor.getSpecialty() != null ? doctor.getSpecialty() : existingDoctor.getSpecialty());</b>
+<b class="nc">&nbsp;        existingDoctor.setPassword(doctor.getPassword() != null ? doctor.getPassword() : existingDoctor.getPassword());</b>
+<b class="nc">&nbsp;        existingDoctor.setDegree(doctor.getDegree() != null ? doctor.getDegree() : existingDoctor.getDegree());</b>
+<b class="nc">&nbsp;        existingDoctor.setLicenseNumber(doctor.getLicenseNumber() != null ? doctor.getLicenseNumber() : existingDoctor.getLicenseNumber());</b>
+<b class="nc">&nbsp;        existingDoctor.setAddress(doctor.getAddress() != null ? doctor.getAddress() : existingDoctor.getAddress());</b>
+<b class="nc">&nbsp;        existingDoctor.setPhoneNumber(doctor.getPhoneNumber() != null ? doctor.getPhoneNumber() : existingDoctor.getPhoneNumber());</b>
+<b class="nc">&nbsp;        return doctorRepository.save(existingDoctor);</b>
+&nbsp;    }
+&nbsp;    public boolean deleteDoctor(String id) {
+<b class="nc">&nbsp;        Optional&lt;Doctor&gt; doctor = doctorRepository.findById(id);</b>
+<b class="nc">&nbsp;        if (doctor.isPresent()) {</b>
+<b class="nc">&nbsp;            doctorRepository.delete(doctor.get());</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            throw new NoSuchElementException(&quot;Doctor not found with id : &quot; + id);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void deactivateDoctorAccount(String doctorId) {
+<b class="nc">&nbsp;        doctorRepository.deleteById(doctorId);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-16 12:47</div>
+</div>
+</body>
+</html>

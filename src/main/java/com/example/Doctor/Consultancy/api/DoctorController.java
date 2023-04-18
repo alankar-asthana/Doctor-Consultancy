@@ -64,7 +64,11 @@ public String showRegistrationForm() {
             return "redirect:/dashboard?email=" + authenticatedDoctor.getEmail();
         }
     }
-
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/home";
+    }
     @GetMapping("/dashboard")
     public String showDashboard() {
         return "DoctorDashboard";

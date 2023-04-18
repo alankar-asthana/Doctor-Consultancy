@@ -1,0 +1,150 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > SecurityConfiguration</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.Doctor.Consultancy.Configuration</a>
+</div>
+
+<h1>Coverage Summary for Class: SecurityConfiguration (com.example.Doctor.Consultancy.Configuration)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SecurityConfiguration</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.Doctor.Consultancy.Configuration;
+&nbsp;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.context.annotation.Bean;
+&nbsp;import org.springframework.context.annotation.Configuration;
+&nbsp;import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+&nbsp;import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+&nbsp;import org.springframework.security.core.userdetails.UserDetailsService;
+&nbsp;import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+&nbsp;
+&nbsp;@Configuration
+&nbsp;@EnableWebSecurity
+<b class="nc">&nbsp;public class SecurityConfiguration extends WebSecurityConfigurerAdapter {</b>
+&nbsp;
+&nbsp;//    @Autowired
+&nbsp;//    private UserDetailsService userDetailsService;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private BCryptPasswordEncoder bCryptPasswordEncoder;
+&nbsp;
+&nbsp;    @Bean
+&nbsp;    public BCryptPasswordEncoder passwordEncoder() {
+<b class="nc">&nbsp;        return new BCryptPasswordEncoder();</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;/*
+&nbsp;    @Override
+&nbsp;    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+&nbsp;        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void configure(HttpSecurity http) throws Exception {
+&nbsp;        http.authorizeRequests()
+&nbsp;                .antMatchers(&quot;/&quot;, &quot;/home&quot;, &quot;/register&quot;, &quot;/login&quot;).permitAll()
+&nbsp;                .antMatchers(&quot;/api/doctor/**&quot;).hasRole(&quot;DOCTOR&quot;)
+&nbsp;                .antMatchers(&quot;/api/patient/**&quot;).hasRole(&quot;PATIENT&quot;)
+&nbsp;                .anyRequest().authenticated()
+&nbsp;                .and()
+&nbsp;                .formLogin()
+&nbsp;                .loginPage(&quot;/login&quot;)
+&nbsp;                .permitAll()
+&nbsp;                .and()
+&nbsp;                .logout()
+&nbsp;                .permitAll();
+&nbsp;    }
+&nbsp;*/
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-16 12:47</div>
+</div>
+</body>
+</html>

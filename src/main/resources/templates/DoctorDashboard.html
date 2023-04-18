@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Dashboard</title>
+</head>
+<body>
+<h1>Doctor Dashboard</h1>
+<h2>Doctor Details</h2>
+<table id="doctor-details">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Specialty</th>
+        <th>Degree</th>
+        <th>License Number</th>
+        <th>Address</th>
+        <th>Phone Number</th>
+        <th>Time Slot</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td id="doctor-name"></td>
+        <td id="doctor-email"></td>
+        <td id="doctor-password"></td>
+        <td id="doctor-specialty"></td>
+        <td id="doctor-degree"></td>
+        <td id="doctor-license-number"></td>
+        <td id="doctor-address"></td>
+        <td id="doctor-phone-number"></td>
+        <td id="doctor-time-slot"></td>
+    </tr>
+    </tbody>
+</table>
+<script>
+  // Retrieve the email parameter from the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const email = urlParams.get('email');
+
+  // Make a request to the API endpoint to retrieve the doctor's data
+  fetch(`/api/doctors/email/${email}`)
+    .then(response => response.json())
+    .then(doctor => {
+      // Populate the dashboard page with the doctor's information
+      const doctorNameElement = document.getElementById('doctor-name');
+      doctorNameElement.textContent = doctor.name;
+
+      const doctorEmailElement = document.getElementById('doctor-email');
+      doctorEmailElement.textContent = doctor.email;
+
+      const doctorPasswordElement = document.getElementById('doctor-password');
+      doctorPasswordElement.textContent = doctor.password;
+
+      const doctorSpecialtyElement = document.getElementById('doctor-specialty');
+      doctorSpecialtyElement.textContent = doctor.specialty;
+
+      const doctorDegreeElement = document.getElementById('doctor-degree');
+      doctorDegreeElement.textContent = doctor.degree;
+
+      const doctorLicenseNumberElement = document.getElementById('doctor-license-number');
+      doctorLicenseNumberElement.textContent = doctor.licenseNumber;
+
+      const doctorAddressElement = document.getElementById('doctor-address');
+      doctorAddressElement.textContent = doctor.address;
+
+      const doctorPhoneNumberElement = document.getElementById('doctor-phone-number');
+      doctorPhoneNumberElement.textContent = doctor.phoneNumber;
+
+      const doctorTimeSlotElement = document.getElementById('doctor-time-slot');
+      doctorTimeSlotElement.textContent = doctor.timeSlot;
+    })
+    .catch(error => {
+      console.error(error);
+      // Add code to handle errors as needed
+    });
+</script>
+
+</body>
+</html>
