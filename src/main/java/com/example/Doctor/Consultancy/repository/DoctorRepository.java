@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface DoctorRepository extends MongoRepository<Doctor, String> {
 
     Optional<List<Doctor>> findBySpecialty(String specialty);
-    Optional<Doctor> findByEmail(String email);
+    Doctor findByEmail(String email);
 
     Optional<Doctor> findByEmailAndPassword(String email, String password);
 }

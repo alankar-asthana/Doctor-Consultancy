@@ -29,13 +29,13 @@ public class AppointmentController {
         Time appointmentTime = appointment.getAppointmentTime();
 
         // check if patient exists
-        Optional<Patient> patient = appointmentService.getPatientByEmail(patientEmail);
+        Patient patient = appointmentService.getPatientByEmail(patientEmail);
         if (patient == null) {
             return ResponseEntity.badRequest().body("Patient not found");
         }
 
         // check if doctor exists
-        Optional<Doctor> doctor = appointmentService.getDoctorByEmail(doctorEmail);
+        Doctor doctor = appointmentService.getDoctorByEmail(doctorEmail);
         if (doctor == null) {
             return ResponseEntity.badRequest().body("Doctor not found");
         }
@@ -48,10 +48,10 @@ public class AppointmentController {
         // create new appointment object
         Appointment newappointment = new Appointment();
         newappointment.setId(UUID.randomUUID().toString());
-        newappointment.setPatientName(Patient.getName());
-        newappointment.setPatientEmail(Patient.getEmail());
-        newappointment.setDoctorName(Doctor.getName());
-        newappointment.setDoctorEmail(Doctor.getEmail());
+        newappointment.setPatientName(patient.getName());
+        newappointment.setPatientEmail(patient.getEmail());
+        newappointment.setDoctorName(doctor.getName());
+        newappointment.setDoctorEmail(doctor.getEmail());
         newappointment.setAppointmentDate(appointmentDate);
         newappointment.setAppointmentTime(appointmentTime);
         newappointment.setVideoLink(newappointment.generateVideoCallLink());

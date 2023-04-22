@@ -3,8 +3,6 @@ package com.example.Doctor.Consultancy.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
-
 @Document(collection = "Doctors")
 public class Doctor {
 
@@ -18,7 +16,6 @@ public class Doctor {
     private String licenseNumber;
     private String address;
     private String phoneNumber;
-
 
 
     public Doctor(String name, String email, String password, String specialty, String degree, String licenseNumber, String address, String phoneNumber) {
@@ -44,15 +41,15 @@ public class Doctor {
         this.id = id;
     }
 
-    public static String getName() {
-        return name;
+    public String getName() {
+        return this.name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public static String getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -107,4 +104,5 @@ public class Doctor {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
 }

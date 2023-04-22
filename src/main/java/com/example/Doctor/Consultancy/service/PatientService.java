@@ -27,7 +27,7 @@ public class PatientService {
     }
 
     public Patient updatePatientByEmail(String identifier, Patient patient) {
-        Patient existingPatient = patientRepository.findByEmail(identifier).orElse(null);
+        Patient existingPatient = patientRepository.findByEmail(identifier);
         if (existingPatient == null) {
             return null;
         }
@@ -40,7 +40,7 @@ public class PatientService {
     }
 
     public Patient updatePatientById(String identifier, Patient patient) {
-        Patient existingPatient = patientRepository.findByEmail(identifier).orElse(null);
+        Patient existingPatient = patientRepository.findById(identifier).orElse(null);
         if (existingPatient == null) {
             return null;
         }

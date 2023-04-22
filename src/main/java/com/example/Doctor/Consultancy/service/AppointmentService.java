@@ -7,14 +7,11 @@ import com.example.Doctor.Consultancy.repository.DoctorRepository;
 import com.example.Doctor.Consultancy.repository.AppointmentRepository;
 import com.example.Doctor.Consultancy.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -36,7 +33,7 @@ public class AppointmentService {
 
     // Method to check if the appointment slot is available
     public boolean isAppointmentSlotAvailable(String doctorEmail, Date appointmentDate, Time appointmentTime) {
-        Optional<Doctor> doctor = doctorRepository.findByEmail(doctorEmail);
+        Doctor doctor = doctorRepository.findByEmail(doctorEmail);
         if (doctor.isPresent()) {
             List<Appointment> appointments = appointmentRepository.findByDoctorEmailAndAppointmentDate(doctorEmail, appointmentDate);
             int count=0;
@@ -69,12 +66,12 @@ public class AppointmentService {
 //    }
 
     // Method to get the patient by email
-    public Optional<Patient> getPatientByEmail(String patientEmail) {
+    public Patient getPatientByEmail(String patientEmail) {
         return patientRepository.findByEmail(patientEmail);
     }
 
     // Method to get the doctor by email
-    public Optional<Doctor> getDoctorByEmail(String doctorEmail) {
+    public Doctor getDoctorByEmail(String doctorEmail) {
         return doctorRepository.findByEmail(doctorEmail);
     }
     public List<Appointment> getAppointmentByPatientEmail(String email) {

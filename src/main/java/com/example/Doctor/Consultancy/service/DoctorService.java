@@ -50,7 +50,7 @@ public class DoctorService {
         return doctorRepository.save(existingDoctor);
     }
     public Doctor updateDoctorByEmail(String email, Doctor doctor) {
-        Doctor existingDoctor = doctorRepository.findByEmail(email).orElse(null);
+        Doctor existingDoctor = doctorRepository.findByEmail(email);
         if (existingDoctor == null) {
             return null;
         }
@@ -89,7 +89,7 @@ public class DoctorService {
     }
 
     public Doctor getDoctorByEmail(String email) {
-        return doctorRepository.findByEmail(email).orElse(null);
+        return doctorRepository.findByEmail(email);
     }
 }
 

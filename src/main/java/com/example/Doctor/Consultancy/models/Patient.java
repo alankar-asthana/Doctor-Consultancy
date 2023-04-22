@@ -28,7 +28,7 @@ public class Patient {
         this.id = id;
     }
 
-    public static String getName() {
+    public String getName() {
         return name;
     }
 
@@ -36,7 +36,7 @@ public class Patient {
         this.name = name;
     }
 
-    public static String getEmail() {
+    public String getEmail() {
         return email;
     }
 
