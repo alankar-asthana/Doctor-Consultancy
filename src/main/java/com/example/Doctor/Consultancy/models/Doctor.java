@@ -44,7 +44,7 @@ public class Doctor {
         this.id = id;
     }
 
-    public String getName() {
+    public static String getName() {
         return name;
     }
 
@@ -52,7 +52,7 @@ public class Doctor {
         this.name = name;
     }
 
-    public String getEmail() {
+    public static String getEmail() {
         return email;
     }
 

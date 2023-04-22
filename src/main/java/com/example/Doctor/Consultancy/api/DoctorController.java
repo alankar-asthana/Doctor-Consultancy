@@ -43,16 +43,6 @@ public String showRegistrationForm() {
         return "Login";
     }
 
-//    @PostMapping("/login")
-//    public String login(@ModelAttribute("doctor") Doctor doctor, RedirectAttributes attributes) {
-//        Doctor authenticatedDoctor = doctorService.authenticate(doctor.getEmail(), doctor.getPassword());
-//
-//        if (authenticatedDoctor == null) {
-//            return "redirect:/login";
-//        } else {
-//            return "redirect:/dashboard";
-//        }
-//    }
     @PostMapping("/login")
     public String login(@ModelAttribute("doctor") Doctor doctor, RedirectAttributes attributes, HttpSession session) {
         Doctor authenticatedDoctor = doctorService.authenticate(doctor.getEmail(), doctor.getPassword());
@@ -74,7 +64,6 @@ public String showRegistrationForm() {
         return "DoctorDashboard";
     }
 
-///////////////////////////////////---------------------------///////////////////////////////////////////
 
     @GetMapping("/api/doctors")
     public List<Doctor> getAllDoctors() {

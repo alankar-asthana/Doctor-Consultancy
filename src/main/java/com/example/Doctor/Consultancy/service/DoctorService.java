@@ -39,14 +39,14 @@ public class DoctorService {
         if (existingDoctor == null) {
             return null;
         }
-        existingDoctor.setName(doctor.getName());
-        existingDoctor.setEmail(doctor.getEmail());
-        existingDoctor.setSpecialty(doctor.getSpecialty());
-        existingDoctor.setPassword(doctor.getPassword());
-        existingDoctor.setDegree(doctor.getDegree());
-        existingDoctor.setLicenseNumber(doctor.getLicenseNumber());
-        existingDoctor.setAddress(doctor.getAddress());
-        existingDoctor.setPhoneNumber(doctor.getPhoneNumber());
+        existingDoctor.setName(doctor.getName() != null ? doctor.getName() : existingDoctor.getName());
+        existingDoctor.setEmail(doctor.getEmail() != null ? doctor.getEmail() : existingDoctor.getEmail());
+        existingDoctor.setSpecialty(doctor.getSpecialty() != null ? doctor.getSpecialty() : existingDoctor.getSpecialty());
+        existingDoctor.setPassword(doctor.getPassword() != null ? doctor.getPassword() : existingDoctor.getPassword());
+        existingDoctor.setDegree(doctor.getDegree() != null ? doctor.getDegree() : existingDoctor.getDegree());
+        existingDoctor.setLicenseNumber(doctor.getLicenseNumber() != null ? doctor.getLicenseNumber() : existingDoctor.getLicenseNumber());
+        existingDoctor.setAddress(doctor.getAddress() != null ? doctor.getAddress() : existingDoctor.getAddress());
+        existingDoctor.setPhoneNumber(doctor.getPhoneNumber() != null ? doctor.getPhoneNumber() : existingDoctor.getPhoneNumber());
         return doctorRepository.save(existingDoctor);
     }
     public Doctor updateDoctorByEmail(String email, Doctor doctor) {

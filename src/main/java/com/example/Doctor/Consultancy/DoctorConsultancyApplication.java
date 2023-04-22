@@ -2,10 +2,11 @@ package com.example.Doctor.Consultancy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan(basePackages = "com.example.Doctor.Consultancy")
 public class DoctorConsultancyApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(DoctorConsultancyApplication.class, args);
 	}
