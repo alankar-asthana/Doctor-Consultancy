@@ -20,10 +20,8 @@ public class DoctorController {
     @Autowired
     private DoctorService doctorService;
 
-
-/////////////////////------------Updated Code----------------/////////////////
-@GetMapping("/register")
-public String showRegistrationForm() {
+    @GetMapping("/register")
+    public String showRegistrationForm() {
     return "DoctorForm";
 }
 

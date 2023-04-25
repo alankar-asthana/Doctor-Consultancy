@@ -7,11 +7,13 @@ import com.example.Doctor.Consultancy.repository.DoctorRepository;
 import com.example.Doctor.Consultancy.repository.AppointmentRepository;
 import com.example.Doctor.Consultancy.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -26,15 +28,20 @@ public class AppointmentService {
     @Autowired
     private DoctorRepository doctorRepository;
 
+    private final MongoTemplate mongoTemplate;
+
+    public AppointmentService(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
+    }
     // Method to save the appointment in the database
-    public void saveAppointment(Appointment appointment) {
-        appointmentRepository.save(appointment);
+    public Appointment saveAppointment(Appointment appointment) {
+        return appointmentRepository.save(appointment);
     }
 
     // Method to check if the appointment slot is available
     public boolean isAppointmentSlotAvailable(String doctorEmail, Date appointmentDate, Time appointmentTime) {
         Doctor doctor = doctorRepository.findByEmail(doctorEmail);
-        if (doctor.isPresent()) {
+        if (doctor != null) {
             List<Appointment> appointments = appointmentRepository.findByDoctorEmailAndAppointmentDate(doctorEmail, appointmentDate);
             int count=0;
             for (Appointment appointment : appointments) {
@@ -86,8 +93,14 @@ public class AppointmentService {
         return appointmentRepository.findById(appointmentId);
     }
 
-    public void deleteAppointment(String appointmentId) {
-        appointmentRepository.deleteById(appointmentId);
+    public boolean deleteAppointment(String id) {
+        Optional<Appointment> appointment = appointmentRepository.findById(id);
+        if (appointment.isPresent()) {
+            appointmentRepository.delete(appointment.get());
+        } else {
+            throw new NoSuchElementException("Appointment not found with id : " + id);
+        }
+        return false;
     }
 
 }
