@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Doctor Dashboard</title>
-    <style>
+  <meta charset="UTF-8">
+  <title>Patient Dashboard</title>
+  <style>
 /* Set default font styles */
 body {
   font-family: Arial, sans-serif;
@@ -105,8 +105,8 @@ tbody tr:hover {
 }
 
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
   $(document).ready(function() {
     // Retrieve the email parameter from the URL
     const urlParams = new URLSearchParams(window.location.search);
@@ -114,19 +114,15 @@ tbody tr:hover {
 
     // Make a request to the API endpoint to retrieve the doctor's data
     $.ajax({
-      url: `/api/doctors/email/${email}`,
+      url: `/patients/email/${email}`,
       type: 'GET',
       dataType: 'json',
-      success: function(doctor) {
-        // Populate the dashboard page with the doctor's information
-        $('#doctor-name').text(doctor.name);
-        $('#doctor-email').text(doctor.email);
-        $('#doctor-specialty').text(doctor.specialty);
-        $('#doctor-degree').text(doctor.degree);
-        $('#doctor-license-number').text(doctor.licenseNumber);
-        $('#doctor-address').text(doctor.address);
-        $('#doctor-phone-number').text(doctor.phoneNumber);
-        $('#doctor-time-slot').text(doctor.timeSlot);
+      success: function(patient) {
+        // Populate the dashboard page with the patient's information
+        $('#patient-name').text(patient.name);
+        $('#patient-email').text(patient.email);
+        $('#patient-address').text(patient.address);
+        $('#patient-phone-number').text(patient.mobileno);
       },
       error: function(error) {
         console.error(error);
@@ -134,9 +130,9 @@ tbody tr:hover {
       }
     });
 
-    // Make a request to the API endpoint to retrieve the doctor's appointments
+    // Make a request to the API endpoint to retrieve the patient's appointments
     $.ajax({
-      url: `/appointments/doctor/${email}`,
+      url: `/appointments/patient/${email}`,
       type: 'GET',
       dataType: 'json',
       success: function(appointments) {
@@ -151,11 +147,11 @@ tbody tr:hover {
         appointments.forEach(appointment => {
           const row = $('<tr></tr>');
 
-          const patientNameCell = $('<td></td>').text(appointment.patientName);
-          row.append(patientNameCell);
+          const doctorNameCell = $('<td></td>').text(appointment.doctorName);
+          row.append(doctorNameCell);
 
-          const patientEmailCell = $('<td></td>').text(appointment.patientEmail);
-          row.append(patientEmailCell);
+          const doctorEmailCell = $('<td></td>').text(appointment.doctorEmail);
+          row.append(doctorEmailCell);
 
           const videoLinkCell = $('<td></td>');
           const videoLinkAnchor = $('<a></a>').attr('href', appointment.videoLink).attr('target', '_blank').text(appointment.videoLink);
@@ -176,32 +172,28 @@ tbody tr:hover {
 </head>
 <body>
 <header class="header">
-    <form action="/logout" method="POST">
-        <button class="header-logout" type="submit">Logout</button>
-    </form>
+  <form action="/patient-logout" method="POST">
+    <button class="header-logout" type="submit">Logout</button>
+  </form>
 </header>
+<h1>Patient Dashboard</h1>
+<h2>Welcome, <span id="patient-name"></span>!</h2>
+<p>Email: <span id="patient-email"></span></p>
+<p>Address: <span id="patient-address"></span></p>
+<p>Phone Number: <span id="patient-phone-number"></span></p>
 
-<h1>Doctor Dashboard</h1>
-<h2>Welcome, <span id="doctor-name"></span>!</h2>
-<p>Email: <span id="doctor-email"></span></p>
-<p>Specialty: <span id="doctor-specialty"></span></p>
-<p>Degree: <span id="doctor-degree"></span></p>
-<p>License Number: <span id="doctor-license-number"></span></p>
-<p>Address: <span id="doctor-address"></span></p>
-<p>Phone Number: <span id="doctor-phone-number"></span></p>
-<p>Available Time Slot: <span id="doctor-time-slot"></span></p>
 <h2>Upcoming Appointments</h2>
 <table id="appointments-table">
-    <thead>
-    <tr>
-        <th>Patient Name</th>
-        <th>Patient Email</th>
-        <th>Video Link</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Table rows will be added dynamically using JavaScript -->
-    </tbody>
+  <thead>
+  <tr>
+    <th>Doctor Name</th>
+    <th>Doctor Email</th>
+    <th>Video Link</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- Table rows will be added dynamically using JavaScript -->
+  </tbody>
 </table>
 </body>
 </html>

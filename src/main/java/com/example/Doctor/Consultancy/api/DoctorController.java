@@ -46,7 +46,7 @@ public class DoctorController {
         Doctor authenticatedDoctor = doctorService.authenticate(doctor.getEmail(), doctor.getPassword());
 
         if (authenticatedDoctor == null) {
-            return "redirect:/login";
+            return "redirect:/register";
         } else {
             session.setAttribute("doctorEmail", authenticatedDoctor.getEmail());
             return "redirect:/dashboard?email=" + authenticatedDoctor.getEmail();
@@ -55,7 +55,7 @@ public class DoctorController {
     @PostMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/home";
+        return "redirect:/home-page";
     }
     @GetMapping("/dashboard")
     public String showDashboard() {
@@ -85,7 +85,7 @@ public class DoctorController {
         return ResponseEntity.ok(doctor);
     }
 
-    @GetMapping("/api/doctors/specialty/{specialty}")
+    @GetMapping("/specialty/{specialty}")
     public ResponseEntity<Optional<List<Doctor>>> getDoctorsBySpecialty(@PathVariable String specialty) {
         return new ResponseEntity<Optional<List<Doctor>>>(doctorService.getDoctorsBySpecialty(specialty), HttpStatus.OK);
     }

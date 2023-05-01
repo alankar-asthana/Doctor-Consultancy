@@ -5,12 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.UUID;
-
 @Document(collection = "Appointments")
 public class Appointment {
 
@@ -20,19 +15,19 @@ public class Appointment {
     private String patientEmail;
     private String doctorName;
     private String doctorEmail;
-    private Date appointmentDate;
-    private Time appointmentTime;
+    private String appointmentDate;
+    //private Time appointmentTime;
     private String videoLink;
     private String symptoms;
     private AppointmentStatus appointmentStatus;
 
-    public Appointment(String patientName, String patientEmail, String doctorName,String doctorEmail, Date appointmentDate, Time appointmentTime, String videoLinkLink, String symptoms) {
+    public Appointment(String patientName, String patientEmail, String doctorName,String doctorEmail, String appointmentDate, String videoLinkLink, String symptoms) {
         this.patientName = patientName;
         this.patientEmail = patientEmail;
         this.doctorName = doctorName;
         this.doctorEmail = doctorEmail;
         this.appointmentDate = appointmentDate;
-        this.appointmentTime = appointmentTime;
+        //this.appointmentTime = appointmentTime;
         this.videoLink = videoLinkLink;
         this.symptoms = symptoms;
     }
@@ -78,21 +73,21 @@ public class Appointment {
         this.doctorEmail = doctorEmail;
     }
 
-    public Date getAppointmentDate() {
+    public String getAppointmentDate() {
         return appointmentDate;
     }
 
-    public void setAppointmentDate(Date appointmentDate) {
+    public void setAppointmentDate(String appointmentDate) {
         this.appointmentDate = appointmentDate;
     }
 
-    public Time getAppointmentTime() {
-        return appointmentTime;
-    }
-
-    public void setAppointmentTime(Time appointmentTime) {
-        this.appointmentTime = appointmentTime;
-    }
+//    public Time getAppointmentTime() {
+//        return appointmentTime;
+//    }
+//
+//    public void setAppointmentTime(Time appointmentTime) {
+//        this.appointmentTime = appointmentTime;
+//    }
 
     public String getVideoLink() {
         return videoLink;
@@ -118,6 +113,7 @@ public class Appointment {
 
         return url;
     }
+
     public void setAppointmentStatus(AppointmentStatus appointmentStatus) {
         this.appointmentStatus = appointmentStatus;
     }

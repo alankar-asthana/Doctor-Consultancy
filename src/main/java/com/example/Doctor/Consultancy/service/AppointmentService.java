@@ -39,7 +39,7 @@ public class AppointmentService {
     }
 
     // Method to check if the appointment slot is available
-    public boolean isAppointmentSlotAvailable(String doctorEmail, Date appointmentDate, Time appointmentTime) {
+    public boolean isAppointmentSlotAvailable(String doctorEmail, String appointmentDate) {
         Doctor doctor = doctorRepository.findByEmail(doctorEmail);
         if (doctor != null) {
             List<Appointment> appointments = appointmentRepository.findByDoctorEmailAndAppointmentDate(doctorEmail, appointmentDate);
@@ -81,13 +81,24 @@ public class AppointmentService {
     public Doctor getDoctorByEmail(String doctorEmail) {
         return doctorRepository.findByEmail(doctorEmail);
     }
-    public List<Appointment> getAppointmentByPatientEmail(String email) {
+    public Optional<List<Appointment>> getAppointmentByPatientEmail(String email) {
         return appointmentRepository.findByPatientEmail(email);
     }
 
-    public List<Appointment> getAppointmentByDoctorEmail(String email) {
+    public Optional<List<Appointment>> getAppointmentByDoctorEmail(String email) {
         return appointmentRepository.findByDoctorEmail(email);
     }
+//        Optional<List<Appointment>> ap = appointmentRepository.findByDoctorEmail(email);
+//        if (ap.isPresent()) {
+//            List<Appointment> appointments = ap.get();
+//            for (Appointment appointment : appointments) {
+//                System.out.println(appointment.getPatientName());
+//                System.out.println(appointment.getPatientEmail());
+//                System.out.println(appointment.getVideoLink());
+//            }
+//        } else {
+//            System.out.println("No appointments found for doctor with email: " + email);
+//        }
 
     public Optional<Appointment> getAppointmentById(String appointmentId) {
         return appointmentRepository.findById(appointmentId);

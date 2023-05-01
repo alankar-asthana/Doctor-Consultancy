@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <link rel="stylesheet" href="form.css" />
+</head>
+<style>
+
+body{
+    background: #11cfa09d;
+}
+
+form {
+  width: 70%;
+  margin: auto;
+  border: 1px solid black;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+    display: inline-block;
+    width: 50px;
+    margin-right:30px;
+    border-width:thin;
+    border-radius:50px;
+}
+
+<!-- form > .form-group {
+  width: 100%;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}-->
+
+.form-control {
+  width: 90%;
+  margin-left: 5%;
+  border: 3px solid rgba(76, 218, 250, 0.651);
+  padding: 12px 8px;
+  outline: 0;
+  border-radius: 5px;
+}
+.form-control:focus {
+  background-color: rgba(143, 234, 255, 0.651);
+}
+
+.input-check-group {
+  margin-left: 5%;
+}
+.submit {
+  padding: 6px 16px;
+  width: 50%;
+  margin: auto;
+  border: 2px solid rgb(204, 167, 124);
+  border-radius: 50px;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+
+}
+.submit:hover {
+  box-shadow: 0px 3px 1px rgb(255, 104, 4);
+}
+
+.submit:active {
+  background-color: gainsboro;
+}
+
+
+</style>
+<center>
+    <h3><u>APPOINTMENT</u></h3>
+</center>
+<body bgcolor= "#FAF0E6">
+<div id="alert" class="alert">
+    <span id="alert-message"></span>
+    <span class="close" onclick="closeAlert()">×</span>
+</div>
+
+
+<form id="appointment" action="save-appointment" method="post">
+    <div class="form-group">
+        <label for="pname"> PATIENT-NAME</label>
+        <input
+                class="form-control"
+                name="patientName"
+                id="pname"
+                type="text"
+                placeholder="Enter name"
+                required
+        />
+    </div>
+    <div class="form-group">
+        <label for="pemail">PATIENT-EMAIL</label>
+        <input
+                class="form-control"
+                type="email"
+                id="pemail"
+                name="patientEmail"
+                placeholder="Enter your email"
+        />
+    </div>
+
+    <div class="form-group">
+        <label for="date">APPOINTMENT DATE</label>
+        <input type="date" id="date" name="appointmentDate">
+    </div>
+
+    <div class="form-group">
+        <label for="symptom">Symptoms</label>
+        <input class="form-control" type="text" id="symptom" name="symptoms" placeholder="Enter your symptoms" />
+    </div>
+
+    <button type="submit" class="submit">SUBMIT</button>
+
+    <input type="hidden" id="doctorName" name="doctorName" value="${doctorName}">
+    <input type="hidden" id="doctorEmail" name="doctorEmail" value="${doctorEmail}">
+</form>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get('name');
+    const email = urlParams.get('email');
+
+    document.getElementById('doctorName').value=name;
+    document.getElementById('doctorEmail').value=email;
+
+       // get the error message from session storage
+    var errorMessage = sessionStorage.getItem("errorMessage");
+
+    // check if there is an error message and display it
+    if (errorMessage) {
+        alert(errorMessage);
+        // clear the error message from the session storage
+        sessionStorage.removeItem("errorMessage");
+    }
+</script>
+</body>
+
+</html>

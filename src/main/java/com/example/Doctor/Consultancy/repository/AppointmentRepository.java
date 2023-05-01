@@ -5,13 +5,14 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AppointmentRepository extends MongoRepository<Appointment, String> {
 
-    List<Appointment> findByDoctorEmailAndAppointmentDate(String doctorEmail, Date appointmentDate);
+    List<Appointment> findByDoctorEmailAndAppointmentDate(String doctorEmail, String appointmentDate);
 
-    List<Appointment> findByPatientEmail(String email);
+    Optional<List<Appointment>> findByPatientEmail(String email);
 
-    List<Appointment> findByDoctorEmail(String email);
+    Optional<List<Appointment>> findByDoctorEmail(String email);
 }

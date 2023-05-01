@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @SpringBootApplication
 @ComponentScan(basePackages = "com.example.Doctor.Consultancy")
-@EnableMongoRepositories(basePackages = "com.example.Doctor.Consultancy.repository")
+//@EnableMongoRepositories(basePackages = "com.example.Doctor.Consultancy.repository")
 public class DoctorConsultancyApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DoctorConsultancyApplication.class, args);

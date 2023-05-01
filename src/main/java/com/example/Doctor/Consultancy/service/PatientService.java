@@ -23,7 +23,7 @@ public class PatientService {
     }
 
     public Patient getPatientByEmail(String email) {
-        return patientRepository.findById(email).orElse(null);
+        return patientRepository.findByEmail(email);
     }
 
     public Patient updatePatientByEmail(String identifier, Patient patient) {

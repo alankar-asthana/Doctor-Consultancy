@@ -1,0 +1,63 @@
+
+{
+border: 2px solid powderblue;
+padding: 30px;
+}
+
+form {
+  width: 70%;
+  margin: auto;
+  border: 1px solid black;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+    display: inline-block;
+    width: 50px;
+    margin-right=30px;
+    border-width=thin;
+    border-radius=50px;
+}
+
+<!-- form > .form-group {
+  width: 100%;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}-->
+
+.form-control {
+  width: 90%;
+  margin-left: 5%;
+  border: 3px solid rgba(76, 218, 250, 0.651);
+  padding: 12px 8px;
+  outline: 0;
+  border-radius: 5px;
+}
+.form-control:focus {
+  background-color: rgba(143, 234, 255, 0.651);
+}
+
+.input-check-group {
+  margin-left: 5%;
+}
+.submit {
+  padding: 6px 16px;
+  width: 50%;
+  margin: auto;
+  border: 2px solid rgb(204, 167, 124);
+  border-radius: 50px;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+
+}
+.submit:hover {
+  box-shadow: 0px 0px 3px 1px rgb(255, 104, 4);
+}
+
+.submit:active {
+  background-color: gainsboro;
+}

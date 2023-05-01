@@ -1,14 +1,17 @@
 package com.example.Doctor.Consultancy.api;
 
+import com.example.Doctor.Consultancy.models.Appointment;
 import com.example.Doctor.Consultancy.models.Doctor;
 import com.example.Doctor.Consultancy.models.Patient;
 import com.example.Doctor.Consultancy.models.Patient;
+import com.example.Doctor.Consultancy.service.AppointmentService;
 import com.example.Doctor.Consultancy.service.PatientService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -19,6 +22,8 @@ import java.util.Optional;
 public class PatientController {
     @Autowired
     private PatientService patientService;
+    @Autowired
+    private AppointmentService appointmentService;
 
     @GetMapping("/patient-register")
     public String showRegistrationForm(){return "PatientForm";}
@@ -38,7 +43,7 @@ public class PatientController {
 
     @GetMapping("/patient-login")
     public String showLoginForm() {
-        return "Login";
+        return "PatientLogin";
     }
 
     @PostMapping("/patient-login")
@@ -46,21 +51,35 @@ public class PatientController {
         Patient authenticatedPatient = patientService.authenticate(patient.getEmail(), patient.getPassword());
 
         if (authenticatedPatient == null) {
-            return "redirect:/login";
+            return "redirect:/patient-register";
         } else {
             session.setAttribute("patientEmail", authenticatedPatient.getEmail());
-            return "redirect:/dashboard?email=" + authenticatedPatient.getEmail();
+            return "redirect:/patient-dashboard?email=" + authenticatedPatient.getEmail();
         }
     }
-    @PostMapping("/logout")
+    @PostMapping("/patient-logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/home";
+        return "redirect:/home-page";
     }
     @GetMapping("/patient-dashboard")
     public String showDashboard() {
         return "PatientDashboard";
     }
+
+//    @GetMapping("/patient-details/{email}")
+//    public String getPatientDetails(@PathVariable String email, Model model) {
+//        // Retrieve patient data from API
+//        Patient patient = patientService.getPatientByEmail(email);
+//        model.addAttribute("patient", patient);
+//
+//        // Retrieve appointment data from API
+//        List<Appointment> appointments = appointmentService.getAppointmentByPatientEmail(email);
+//        model.addAttribute("appointments", appointments);
+//
+//        // Render the patient-details.html template
+//        return model;
+//    }
     @GetMapping("/patients/{id}")
     public ResponseEntity<Patient> getPatientById(@PathVariable String id) {
         Patient patient = patientService.getPatientById(id);
@@ -72,11 +91,11 @@ public class PatientController {
 
     @GetMapping("/patients/email/{email}")
     public ResponseEntity<Patient> getPatientByEmail(@PathVariable String email) {
-        Patient Patient = patientService.getPatientByEmail(email);
-        if (Patient == null) {
+        Patient patient = patientService.getPatientByEmail(email);
+        if (patient == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(Patient);
+        return ResponseEntity.ok(patient);
     }
     
 
